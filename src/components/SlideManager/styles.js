@@ -6,36 +6,51 @@ export const SlideManagerContainer = styled.div`
     overflow: hidden;
     height: ${window.innerHeight}px;    
 `
-export const CurrentSlide = styled.div`
+export const Slide = styled.div`
     ${({ src }) => src && `background: url(${src});`}
+    background-size: 100% 100%;
     height: ${window.innerHeight}px;
     position: absolute;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     flex-direction: column;
     justify-content: space-between;
+    grid-template-areas: 
+        "header header header header header header header header"
+        "header header header header header header header header"
+        ". . . . . . . ."
+        "content content content content content content content content"
+        "content content content content content content content content"
+        "content content content content content content content content"
+        ". . . . . . . ."
+        "button button button . . . . .";
+        
+    > * {
+        z-index: 5;
+    }
 `
-export const NextSlide = styled(CurrentSlide)``
 
-export const CurrentHeader = styled.h1`
+export const Header = styled.h1`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
     ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
+    grid-area: header;
 `
-export const NextHeader = styled(CurrentHeader)``
 
-export const CurrentContent = styled.p`
+export const Content = styled.p`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
     ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
+    grid-area: content;
 `
-export const NextContent = styled(CurrentContent)``
 
-export const CurrentSlideButton = styled.button`
+export const SlideButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
     ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
+    grid-area: button;
 `
-export const NextSlideButton = styled(CurrentSlideButton)``
 
 export const ScrollToTopButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
@@ -43,16 +58,14 @@ export const ScrollToTopButton = styled.button`
     position: relative;
 `
 
-export const CurrentParallaxImage = styled.div`
+export const ParallaxImage = styled.div`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
     ${({ left, top }) => `left: ${left}; top: ${top};`}
-    background: url(${({ src }) => src});
-    background-size: 100% 100%;
+    background: url(${({ src }) => src}) no-repeat;
+    background-size: 100%;
+    background-position: center;
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: -1;
-`
-export const NextParallaxImage = styled(CurrentParallaxImage)`
-    ${({ left, top }) => `left: ${left}; top: ${top};`}    
+    z-index: 1;
 `
