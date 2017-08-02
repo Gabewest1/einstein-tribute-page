@@ -32,6 +32,7 @@ export const actions = {
 const offsetsReducer = handleActions({
     [setSlidesOffsetTop]: (state, action) => {
         state[action.payload.index] = action.payload.amount
+
         return state
     }
 }, {})
@@ -42,7 +43,42 @@ const slideTrackerReducer = handleActions({
     [previousSlideFinished]: (state, action) => ({...state, currentStep: state.currentStep - 1})
 }, {
     steps: [
-
+        {
+            header1Top: 0,
+            header1Left: 0,
+            header2Top: "100%",
+            header2Left: "100%",
+            content1Top: 0,
+            content1Left: 0,
+            content2Top: "100%",
+            content2Left: "100%",
+            image1Top: 0,
+            image1Left: 0,
+            image2Top: 0,
+            image2Left: 0,
+            image3Top: "100%",
+            image3Left: 0,
+            image4Top: "100%",
+            image4Left: "100%"
+        },
+        {
+            header1Top: "-100%",
+            header1Left: 0,
+            header2Top: 0,
+            header2Left: 0,
+            content1Top: "-100%",
+            content1Left: 0,
+            content2Top: 0,
+            content2Left: 0,
+            image1Top: "-100%",
+            image1Left: 0,
+            image2Top: 0,
+            image2Left: 0,
+            image3Top: 0,
+            image3Left: 0,
+            image4Top: "100%",
+            image4Left: "100%"
+        }
     ],
     currentStep: 0
 })

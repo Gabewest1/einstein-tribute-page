@@ -1,4 +1,4 @@
-export const selectNumSlides = (state) => {
+const selectNumSlides = (state) => {
     let { slidesReducer } = state
     let numSlides = 0
 
@@ -14,6 +14,13 @@ export const selectNumSlides = (state) => {
     return numSlides
 }
 
+const selectCurrentStep = (state) => {
+    let { steps, currentStep } = state.slidesReducer.slideTrackerReducer
+
+    return steps[currentStep % steps.length]
+}
+
 export default {
-    selectNumSlides
+    selectNumSlides,
+    selectCurrentStep
 }

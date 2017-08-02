@@ -6,7 +6,7 @@ export const SlideManagerContainer = styled.div`
     overflow: hidden;
     height: ${window.innerHeight}px;    
 `
-export const Slide = styled.div`
+export const CurrentSlide = styled.div`
     ${({ src }) => src && `background: url(${src});`}
     height: ${window.innerHeight}px;
     position: absolute;
@@ -14,40 +14,45 @@ export const Slide = styled.div`
     flex-direction: column;
     justify-content: space-between;
 `
+export const NextSlide = styled(CurrentSlide)``
 
-export const Header = styled.h1`
+export const CurrentHeader = styled.h1`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top}};`}
+    ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
 `
+export const NextHeader = styled(CurrentHeader)``
 
-export const Content = styled.p`
+export const CurrentContent = styled.p`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top}};`}
+    ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
 `
+export const NextContent = styled(CurrentContent)``
 
-export const NextSlideButton = styled.button`
+export const CurrentSlideButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top}};`}
+    ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
 `
+export const NextSlideButton = styled(CurrentSlideButton)``
 
 export const ScrollToTopButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top}};`}
+    ${({ left, top }) => `left: ${left}; top: ${top};`}
     position: relative;
 `
 
-export const ParallaxImage = styled.div`
+export const CurrentParallaxImage = styled.div`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top}};`}
+    ${({ left, top }) => `left: ${left}; top: ${top};`}
     background: url(${({ src }) => src});
     background-size: 100% 100%;
     position: absolute;
     width: 100%;
     height: 100%;
-    left: 0;
-    top: 0;
     z-index: -1;
+`
+export const NextParallaxImage = styled(CurrentParallaxImage)`
+    ${({ left, top }) => `left: ${left}; top: ${top};`}    
 `
