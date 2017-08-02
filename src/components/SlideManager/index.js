@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
-import {
+import { 
     Slide,
     Header,
     Content,
@@ -26,21 +26,58 @@ class SlideManager extends React.Component {
     }
     render() {
         return (
-            <Slide>
-                <Header isAnimating={ this.state.isAnimating } top={ this.state.animateFirst ? "100%" : 0 } left={ this.state.animateFirst ? "100%" : 0 }>This is the first Header Cheddar :D</Header>
-                <Header isAnimating={ this.state.isAnimating } top={ this.state.animateFirst ? 0 : "100%" } left={ this.state.animateFirst ? 0 : "100%" }>Ayyyy let me slide in here right quick</Header>
-                <Content isAnimating={ this.state.isAnimating } top={ this.state.animateFirst ? "100%" : 0 } left={ this.state.animateFirst ? "100%" : 0 }>
+            <SlideManagerContainer>
+                <Slide>
+                    <Header isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? "100%" : 0}
+                        left={ this.state.animateFirst ? "100%" : 0 }>This is the first Header Cheddar :D</Header>
+                    <Content
+                        isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? "100%" : 0 }
+                        left={ this.state.animateFirst ? "100%" : 0 }>
                         There once was a man who lived in a shoe. The shoe was cool
-                        but the was more to do. So I went to the pool and took a stool and
+                        but the was more to do. So I went to the pool and took a stool and 
                         said what a fool to not bring his tools.
-                </Content>
-                <Content isAnimating={ this.state.isAnimating } top={ this.state.animateFirst ? 0 : "100%" } left={ this.state.animateFirst ? 0 : "100%" }>
+                    </Content>
+                    <ParallaxImage
+                        src={ "/assets/images/young-left.png" }
+                        isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? 0 : "100%" }
+                        left={ this.state.animateFirst ? 0 : "100%" } />
+                    <ParallaxImage
+                        src={ "/assets/images/young-right.png" }
+                        isAnimating={ this.state.isAnimating }                        
+                        top={ this.state.animateFirst ? 0 : "100%" }
+                        left={ this.state.animateFirst ? 0 : "100%" } />
+                    <div>
+                        <NextSlideButton onClick={ () => this.handleClick() }>Next Slide</NextSlideButton>
+                    </div>
+                </Slide>
+                <Slide>
+                    <Header
+                        isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? 0 : "100%" }
+                        left={ this.state.animateFirst ? 0 : "100%" }>Ayyyy let me slide in here right quick</Header>
+                    <Content isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? 0 : "100%" }
+                        left={ this.state.animateFirst ? 0 : "100%" }>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam odio deleniti impedit soluta nostrum ipsa ea harum molestias, perspiciatis consectetur quibusdam, dolores voluptates quas vero. Odit itaque dicta illum consectetur.
-                </Content>
-                <div>
-                    <NextSlideButton onClick={ () => this.handleClick() }>Next Slide</NextSlideButton>
-                </div>
-            </Slide>
+                    </Content>
+                    <ParallaxImage
+                        src={ "/assets/images/old-left.png" }
+                        isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? "100%" : 0 }
+                        left={ this.state.animateFirst ? "100%" : 0 } />
+                    <ParallaxImage
+                        src={ "/assets/images/young-right.png" }
+                        isAnimating={ this.state.isAnimating }
+                        top={ this.state.animateFirst ? "100%" : "100%" }
+                        left={ this.state.animateFirst ? "100%" : "100%" } />
+                    <div>
+                        <NextSlideButton onClick={ () => this.handleClick() }>Next Slide</NextSlideButton>
+                    </div>
+                </Slide>
+            </SlideManagerContainer>
         )
     }
 }
