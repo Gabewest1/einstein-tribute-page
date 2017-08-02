@@ -1,0 +1,59 @@
+@import './fonts.css';
+
+
+:root {
+  --font-optimizing: {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  --typewriter-regular: {
+    @apply --font-optimizing;
+    font-family: 'AmericanTypewriter-Regular';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --futura-book: {
+    @apply --font-optimizing;
+    font-family: 'FuturaPT-Book';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --handserif-medium: {
+    @apply --font-optimizing;
+    font-family: 'HandSerif-Medium';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --libhanddis-regular: {
+    @apply --font-optimizing;
+    font-family: 'LibHandDis-Regular';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --lato-black: {
+    @apply --font-optimizing;
+    font-family: 'Lato-Black';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --lato-bold: {
+    @apply --font-optimizing;
+    font-family: 'Lato-Bold';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+  --lato-hairline: {
+    @apply --font-optimizing;
+    font-family: 'Lato-Hairline';
+    font-style: normal;
+    font-weight: normal;
+  }
+}
