@@ -1,26 +1,16 @@
-const selectNumSlides = (state) => {
-    let { slidesReducer } = state
-    let numSlides = 0
+import { createSelector } from "reselect"
 
-    while (true) {
-        console.log(numSlides, slidesReducer)
-        if (slidesReducer.hasOwnProperty(numSlides)) {
-            numSlides++
-        } else {
-            break
-        }
-    }
+const selectCurrentSlideIndex = (state) => state.slidesReducer.slides.currentSlideIndex
+const selectSlides = (state) => state.slidesReducer.slides.slides
 
-    return numSlides
-}
-
-const selectCurrentStep = (state) => {
-    let { steps, currentStep } = state.slidesReducer.slideTrackerReducer
-
-    return steps[currentStep % steps.length]
-}
+const selectCurrentSlide = createSelector(
+    selectSlides,
+    selectCurrentSlideIndex,
+    (slides, currentStepIndex) => slides[currentStepIndex % slides.length]
+)
 
 export default {
-    selectNumSlides,
-    selectCurrentStep
+    selectCurrentSlideIndex,
+    selectSlides,
+    selectCurrentSlide
 }

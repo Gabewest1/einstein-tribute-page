@@ -16,19 +16,15 @@ export const Slide = styled.div`
     grid-template-rows: repeat(8, 1fr);
     flex-direction: column;
     justify-content: space-between;
-    grid-template-areas: 
-        "header header header header header header header header"
-        "header header header header header header header header"
-        ". . . . . . . ."
-        "content content content content content content content content"
-        "content content content content content content content content"
-        "content content content content content content content content"
-        ". . . . . . . ."
-        "button button button . . . . .";
-        
+    grid-template-areas: ${({ gridStyle }) => gridStyle };
+
     > * {
         z-index: 5;
     }
+`
+export const CurrentSlide = styled(Slide)`
+    display: block;
+    z-index: 6;
 `
 
 export const Header = styled.h1`
@@ -59,7 +55,7 @@ export const ScrollToTopButton = styled.button`
 `
 
 export const ParallaxImage = styled.div`
-    ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
+    ${({ isAnimating }) => isAnimating && "transition: all 500ms linear;" }
     ${({ left, top }) => `left: ${left}; top: ${top};`}
     background: url(${({ src }) => src}) no-repeat;
     background-size: 100%;
