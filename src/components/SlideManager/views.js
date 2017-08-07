@@ -2,8 +2,6 @@ import React from "react"
 import $ from "jquery"
 
 import {
-    Slide,
-    CurrentSlide,
     Header,
     Content,
     SlideButton,
@@ -17,23 +15,7 @@ export class SlideComponent extends React.Component {
         let $this = $(this.component)
         let { top, left } = $this.position()
 
-        this.props.setComponentsPosition(name, type, {top, left})
-    }
-}
-
-export class SlideView extends SlideComponent {
-    render() {
-        return (
-            <Slide innerRef={ (component) => {this.component = component} } { ...this.props } />
-        )
-    }
-}
-
-export class CurrentSlideView extends SlideComponent {
-    render() {
-        return (
-            <CurrentSlide innerRef={ (component) => {this.component = component} } { ...this.props } />
-        )
+        this.props.setComponentsPosition({name, type, position: {top, left}})
     }
 }
 
