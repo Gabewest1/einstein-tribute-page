@@ -12,6 +12,8 @@ import {
     ParallaxImage
 } from "./styles"
 
+import { SlideComponent } from "./views"
+
 import { actions as slidesActions, selectors as slidesSelectors } from "Redux/Slides"
 
 class SlideManager extends React.Component {
@@ -51,47 +53,6 @@ class SlideManager extends React.Component {
         } = this.props.currentStep
 
         let { nextGridStyle } = this.props
-
-        // let header1Top = this.state.animateFirst ? "-100%" : 0
-        // let header1Left = this.state.animateFirst ? 0 : 0
-
-        // let header2Top = this.state.animateFirst ? 0 : "100%"
-        // let header2Left = this.state.animateFirst ? 0 : 0
-
-        // let content1Top = this.state.animateFirst ? "-100%" : 0
-        // let content1Left = this.state.animateFirst ? 0 : 0
-
-        // let content2Top = this.state.animateFirst ? 0 : "100%"
-        // let content2Left = this.state.animateFirst ? 0 : 0
-
-        // let image1Top = this.state.animateFirst ? "-100%" : 0
-        // let image1Left = this.state.animateFirst ? 0 : 0
-
-        // let image2Top = this.state.animateFirst ? 0 : 0
-        // let image2Left = this.state.animateFirst ? 0 : 0
-
-        // let image3Top = this.state.animateFirst ? 0 : "100%"
-        // let image3Left = this.state.animateFirst ? 0 : 0
-
-        // let image4Top = this.state.animateFirst ? "100%" : "100%"
-        // let image4Left = this.state.animateFirst ? "100%" : "100%"
-
-        console.log("header1Top:", header1Top,
-"\nheader1Left:", header1Left,
-"\nheader2Top:", header2Top,
-"\nheader2Left:", header2Left,
-"\ncontent1Top:", content1Top,
-"\ncontent1Left:", content1Left,
-"\ncontent2Top:", content2Top,
-"\ncontent2Left:", content2Left,
-"\nimage1Top:", image1Top,
-"\nimage1Left:", image1Left,
-"\nimage2Top:", image2Top,
-"\nimage2Left:", image2Left,
-"\nimage3Top:", image3Top,
-"\nimage3Left:", image3Left,
-"\nimage4Top:", image4Top,
-"\nimage4Left:", image4Left)
 
         return (
             <SlideManagerContainer>
