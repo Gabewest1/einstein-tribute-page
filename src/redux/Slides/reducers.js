@@ -6,15 +6,15 @@ const {
     startNextSlide,
     nextSlideFinished,
     startPreviousSlide,
-    previousSlideFinished
+    previousSlideFinished,
+    setComponentsPosition
 } = createActions(
-    "SET_SLIDES_OFFSET_TOP",
     "GOTO_NEXT_SLIDE",
-    "SCROLL_PAGE_TO",
     "START_NEXT_SLIDE",
     "NEXT_SLIDE_FINISHED",
     "START_PREVIOUS_SLIDE",
-    "PREVIOUS_SLIDE_FINISHED"
+    "PREVIOUS_SLIDE_FINISHED",
+    "SET_COMPONENTS_POSITION"
 )
 
 export const actions = {
@@ -22,11 +22,13 @@ export const actions = {
     startNextSlide,
     nextSlideFinished,
     startPreviousSlide,
-    previousSlideFinished
+    previousSlideFinished,
+    setComponentsPosition
 }
 
 const positionsReducer = handleActions({
-
+    [setComponentsPosition]: (state, {payload: { name, type, position }}) =>
+        ({...state, [type]: {...state[type], [name]: position}})
 }, {previous: {}, current: {}, next: {}})
 
 const slideTrackerReducer = handleActions({
@@ -65,21 +67,13 @@ const slideTrackerReducer = handleActions({
             image4Src: "/assets/images/young-right.png"
         },
         {
-            // gridStyle: `"content content content content content content content content"
-            //            "content content content content content content content content"
-            //            "content content content content content content content content"
-            //            ". . . . . . . ."
-            //            ". . . . . . . ."
-            //            "header header header header header header header header"
-            //            "header header header header header header header header"
-            //            "button button button . . . . ."`,
-            gridStyle: `"header header header header header header header header"
+            gridStyle: `"content content content content content content content content"
+                       "content content content content content content content content"
+                       "content content content content content content content content"
+                       ". . . . . . . ."
+                       ". . . . . . . ."
                        "header header header header header header header header"
-                       ". . . . . . . ."
-                       "content content content content content content content content"
-                       "content content content content content content content content"
-                       "content content content content content content content content"
-                       ". . . . . . . ."
+                       "header header header header header header header header"
                        "button button button . . . . ."`,
             header1Top: "-100%",
             header1Left: 0,
