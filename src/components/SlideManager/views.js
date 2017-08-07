@@ -12,7 +12,7 @@ import {
 
 export class SlideComponent extends React.Component {
     componentDidMount() {
-        let = { name, nextOrPrev, setComponentsPosition } = this.props
+        let { name, nextOrPrev, setComponentsPosition } = this.props
         let top = window.getComputedStyle(this.component).getPropertyValue("top")
         let left = window.getComputedStyle(this.component).getPropertyValue("left")
 
