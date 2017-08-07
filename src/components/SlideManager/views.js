@@ -1,5 +1,5 @@
 import React from "react"
-import sizeMe from "react-sizeme"
+import $ from "jquery"
 
 import {
     Slide,
@@ -12,17 +12,59 @@ import {
 
 export class SlideComponent extends React.Component {
     componentDidMount() {
-        let { name, nextOrPrev, setComponentsPosition } = this.props
-        let top = window.getComputedStyle(this.component).getPropertyValue("top")
-        let left = window.getComputedStyle(this.component).getPropertyValue("left")
+        console.log("SLIDECOMPONENT:", this.component)
+        let { name, type, setComponentsPosition } = this.props
+        let $this = $(this.component)
+        let { top, left } = $this.position()
 
-        this.props.setComponentsPosition(name, nextOrPrev, {top, left})
+        this.props.setComponentsPosition(name, type, {top, left})
     }
-    render() {
-        let { Component } = this.props
+}
 
+export class SlideView extends SlideComponent {
+    render() {
         return (
-            <Component { ...this.props } />
+            <Slide innerRef={ (component) => {this.component = component} } { ...this.props } />
+        )
+    }
+}
+
+export class CurrentSlideView extends SlideComponent {
+    render() {
+        return (
+            <CurrentSlide innerRef={ (component) => {this.component = component} } { ...this.props } />
+        )
+    }
+}
+
+export class HeaderView extends SlideComponent {
+    render() {
+        return (
+            <Header innerRef={ (component) => {this.component = component} } { ...this.props } />
+        )
+    }
+}
+
+export class ContentView extends SlideComponent {
+    render() {
+        return (
+            <Content innerRef={ (component) => {this.component = component} } { ...this.props } />
+        )
+    }
+}
+
+export class SlideButtonView extends SlideComponent {
+    render() {
+        return (
+            <SlideButton innerRef={ (component) => {this.component = component} } { ...this.props } />
+        )
+    }
+}
+
+export class ParallaxImageView extends SlideComponent {
+    render() {
+        return (
+            <ParallaxImage innerRef={ (component) => {this.component = component} } { ...this.props } />
         )
     }
 }
