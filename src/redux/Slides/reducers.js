@@ -25,6 +25,10 @@ export const actions = {
     previousSlideFinished
 }
 
+const positionsReducer = handleActions({
+
+}, {previous: {}, current: {}, next: {}})
+
 const slideTrackerReducer = handleActions({
     [nextSlideFinished]: (state, action) => ({...state, currentSlideIndex: state.currentSlideIndex + 1}),
     [previousSlideFinished]: (state, action) => ({...state, currentSlideIndex: state.currentSlideIndex - 1})
@@ -133,5 +137,6 @@ const slideTrackerReducer = handleActions({
 })
 
 export default combineReducers({
-    slides: slideTrackerReducer
+    slides: slideTrackerReducer,
+    positions: positionsReducer
 })
