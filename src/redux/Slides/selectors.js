@@ -6,11 +6,25 @@ const selectSlides = (state) => state.slidesReducer.slides.slides
 const selectCurrentSlide = createSelector(
     selectSlides,
     selectCurrentSlideIndex,
-    (slides, currentStepIndex) => slides[currentStepIndex % slides.length]
+    (slides, currentSlideIndex) => slides[currentSlideIndex % slides.length]
+)
+
+const selectNextSlide = createSelector(
+    selectSlides,
+    selectCurrentSlide,
+    (slides, currentSlideIndex) => slides[(currentSlideIndex + 1) % slides.length]
+)
+
+const selectPreviousSlide = createSelector(
+    selectSlides,
+    selectCurrentSlide,
+    (slides, currentSlideIndex) => slides[(currentSlideIndex - 1) % slides.length]
 )
 
 export default {
     selectCurrentSlideIndex,
     selectSlides,
-    selectCurrentSlide
+    selectCurrentSlide,
+    selectNextSlide,
+    selectPreviousSlide
 }
