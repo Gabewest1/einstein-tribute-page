@@ -1,14 +1,15 @@
 import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import PropTypes from "prop-types"
 
 import {
-    SlideManagerContainer    
+    SlideManagerContainer,
+    Slide,
+    CurrentSlide
 } from "./styles"
 
 import {
-    SlideView,
-    CurrentSlideView,
     HeaderView,
     ContentView,
     SlideButtonView,
@@ -29,148 +30,251 @@ class SlideManager extends React.Component {
         this.props.nextSlideFinished()
     }
     render() {
-        let {
-            gridStyle,
-            header1Top,
-            header1Left,
-            header2Top,
-            header2Left,
-            content1Top,
-            content1Left,
-            content2Top,
-            content2Left,
-            image1Top,
-            image1Left,
-            image1Src,
-            image2Top,
-            image2Left,
-            image2Src,            
-            image3Top,
-            image3Left,
-            image3Src,            
-            image4Top,
-            image4Left,
-            image4Src            
-        } = this.props.currentStep
-
-        let { nextGridStyle } = this.props
+        let { currentSlide, nextSlide, previousSlide, setComponentsPosition } = this.props
 
         return (
             <SlideManagerContainer>
-                <CurrentSlideView src={ "/assets/images/background.png" }>
-                    <HeaderView isAnimating={ this.state.isAnimating }
-                        top={ header1Top }
-                        left={ header1Left }>This is the first Header Cheddar :D
+                <CurrentSlide src={ "/assets/images/background.png" }>
+                    <HeaderView
+                        name="header"
+                        type="current"
+                        isAnimating={ this.state.isAnimating }
+                        top={ currentSlide.header.top }
+                        left={ currentSlide.header.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { currentSlide.header.content }
                     </HeaderView>
-                    <HeaderView isAnimating={ this.state.isAnimating }
-                        top={ header2Top }
-                        left={ header2Left }>This is the first Header Cheddar :D
+                    <HeaderView
+                        name="nextHeader"
+                        type="current"
+                        isAnimating={ this.state.isAnimating }
+                        top={ nextSlide.header.start.top }
+                        left={ nextSlide.header.start.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.header.content }
                     </HeaderView>
-                    <ContentView
+                    <HeaderView
+                        name="previousHeader"
+                        type="current"
                         isAnimating={ this.state.isAnimating }
-                        top={ content2Top }
-                        left={ content2Left }>
-                        There once was a man who lived in a shoe. The shoe was cool
-                        but the was more to do. So I went to the pool and took a stool and
-                        said what a fool to not bring his tools.
-                    </ContentView>
-                    <ContentView
-                        isAnimating={ this.state.isAnimating }
-                        top={ content1Top }
-                        left={ content1Left }>
-                        There once was a man who lived in a shoe. The shoe was cool
-                        but the was more to do. So I went to the pool and took a stool and
-                        said what a fool to not bring his tools.
-                    </ContentView>
-                    <ParallaxImageView
-                        src={ image1Src }
-                        isAnimating={ this.state.isAnimating }
-                        top={ image1Top }
-                        left={ image1Left } />
-                    <ParallaxImageView
-                        src={ image2Src }
-                        isAnimating={ this.state.isAnimating }
-                        top={ image2Top }
-                        left={ image2Left } />
-                    <ParallaxImageView
-                        src={ image3Src }
-                        isAnimating={ this.state.isAnimating }
-                        top={ image3Top }
-                        left={ image3Left } />
-                    <ParallaxImageView
-                        src={ image4Src }
-                        isAnimating={ this.state.isAnimating }
-                        top={ image4Top }
-                        left={ image4Left } />
-                    <SlideButtonView onClick={ () => this.handleClick() }>Next Slide</SlideButtonView>
-                </CurrentSlideView>
-                <SlideView gridStyle={ gridStyle } src={ "/assets/images/background.png" }>
-                    <HeaderView isAnimating={ this.state.isAnimating }
-                        top={ header1Top }
-                        left={ header1Left }>This is the first Header Cheddar :D
+                        top={ previousSlide.header.end.top }
+                        left={ previousSlide.header.end.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.header.content }
                     </HeaderView>
                     <ContentView
+                        name="content"
+                        type="current"
                         isAnimating={ this.state.isAnimating }
-                        top={ content1Top }
-                        left={ content1Left }>
-                        There once was a man who lived in a shoe. The shoe was cool
-                        but the was more to do. So I went to the pool and took a stool and
-                        said what a fool to not bring his tools.
+                        top={ currentSlide.body.left }
+                        left={ currentSlide.body.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { currentSlide.body.content }
+                    </ContentView>
+                    <ContentView
+                        name="nextContent"
+                        type="current"
+                        isAnimating={ this.state.isAnimating }
+                        top={ nextSlide.body.start.top }
+                        left={ nextSlide.body.start.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.body.content }
+                    </ContentView>
+                    <ContentView
+                        name="previousContent"
+                        type="current"
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.body.end.top }
+                        left={ previousSlide.body.end.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.body.content }
                     </ContentView>
                     <ParallaxImageView
-                        src={ image1Src }
+                        name="image1"
+                        type="current"
+                        src={ currentSlide.image1.src }
                         isAnimating={ this.state.isAnimating }
-                        top={ image1Top }
-                        left={ image1Left } />
+                        top={ currentSlide.image1.top }
+                        left={ currentSlide.image1.left }
+                        setComponentsPosition={ setComponentsPosition } />
                     <ParallaxImageView
-                        src={ image2Src }
+                        name="image2"
+                        type="current"
+                        src={ currentSlide.image2.src }
                         isAnimating={ this.state.isAnimating }
-                        top={ image2Top }
-                        left={ image2Left } />
-                    <SlideButtonView onClick={ () => this.handleClick() }>Next Slide</SlideButtonView>
-                </SlideView>
-                <SlideView gridStyle={ gridStyle } src={ "/assets/images/background.png" }>
-                    <HeaderView isAnimating={ this.state.isAnimating }
-                        top={ header1Top }
-                        left={ header1Left }>This is the first Header Cheddar :D
+                        top={ currentSlide.image2.top }
+                        left={ currentSlide.image2.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <ParallaxImageView
+                        name="nextImage1"
+                        type="current"
+                        src={ nextSlide.image1.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ nextSlide.image1.start.top }
+                        left={ nextSlide.image1.start.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <ParallaxImageView
+                        name="nextImage2"
+                        type="current"
+                        src={ nextSlide.image2.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ nextSlide.image2.start.top }
+                        left={ nextSlide.image2.start.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <ParallaxImageView
+                        name="previousImage1"
+                        type="current"
+                        src={ previousSlide.image1.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.image1.end.top }
+                        left={ previousSlide.image1.end.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <ParallaxImageView
+                        name="previousImage2"
+                        type="current"
+                        src={ previousSlide.image2.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.image2.end.top }
+                        left={ previousSlide.image2.end.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <SlideButtonView
+                        onClick={ () => this.handleClick() }
+                        name="button"
+                        type="current"
+                        top={ currentSlide.button.top }
+                        left={ currentSlide.button.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { currentSlide.button.content }
+                    </SlideButtonView>
+                    <SlideButtonView
+                        onClick={ () => this.handleClick() }
+                        name="nextButton"
+                        type="current"
+                        top={ nextSlide.button.start.top }
+                        left={ nextSlide.button.start.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.button.content }
+                    </SlideButtonView>
+                    <SlideButtonView
+                        onClick={ () => this.handleClick() }
+                        name="previousButton"
+                        type="current"
+                        top={ previousSlide.button.end.top }
+                        left={ previousSlide.button.end.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.button.content }
+                    </SlideButtonView>
+                </CurrentSlide>
+                <Slide gridStyle={ nextSlide.gridStyle } style={{opacity: 0}}>
+                    <HeaderView
+                        name="header"
+                        type="next"
+                        isAnimating={ this.state.isAnimating }
+                        top={ nextSlide.header.top }
+                        left={ nextSlide.header.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.header.content }
                     </HeaderView>
                     <ContentView
+                        name="content"
+                        type="next"
                         isAnimating={ this.state.isAnimating }
-                        top={ content1Top }
-                        left={ content1Left }>
-                        There once was a man who lived in a shoe. The shoe was cool
-                        but the was more to do. So I went to the pool and took a stool and
-                        said what a fool to not bring his tools.
+                        top={ nextSlide.body.top }
+                        left={ nextSlide.body.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.body.content }
                     </ContentView>
                     <ParallaxImageView
-                        src={ image1Src }
+                        name="image1"
+                        type="next"
+                        src={ nextSlide.image1.src }
                         isAnimating={ this.state.isAnimating }
-                        top={ image1Top }
-                        left={ image1Left } />
+                        top={ nextSlide.image1.top }
+                        left={ nextSlide.image1.left }
+                        setComponentsPosition={ setComponentsPosition } />
                     <ParallaxImageView
-                        src={ image2Src }
+                        name="image2"
+                        type="next"
+                        src={ nextSlide.image2.src }
                         isAnimating={ this.state.isAnimating }
-                        top={ image2Top }
-                        left={ image2Left } />
-                    <SlideButtonView onClick={ () => this.handleClick() }>Next Slide</SlideButtonView>
-                </SlideView>
+                        top={ nextSlide.image2.top }
+                        left={ nextSlide.image2.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <SlideButtonView
+                        onClick={ () => this.handleClick() }
+                        name="button"
+                        type="next"
+                        top={ nextSlide.button.top }
+                        left={ nextSlide.button.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { nextSlide.button.content }
+                    </SlideButtonView>
+                </Slide>
+                <Slide gridStyle={ previousSlide.gridStyle } style={{opacity: 0}}>
+                    <HeaderView
+                        name="header"
+                        type="previous"
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.header.top }
+                        left={ previousSlide.header.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.header.content }
+                    </HeaderView>
+                    <ContentView
+                        name="content"
+                        type="previous"
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.body.top }
+                        left={ previousSlide.body.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.body.content }
+                    </ContentView>
+                    <ParallaxImageView
+                        name="image1"
+                        type="previous"
+                        src={ previousSlide.image1.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.image1.top }
+                        left={ previousSlide.image1.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <ParallaxImageView
+                        name="image2"
+                        type="previous"
+                        src={ previousSlide.image2.src }
+                        isAnimating={ this.state.isAnimating }
+                        top={ previousSlide.image2.top }
+                        left={ previousSlide.image2.left }
+                        setComponentsPosition={ setComponentsPosition } />
+                    <SlideButtonView
+                        onClick={ () => this.handleClick() }
+                        name="button"
+                        type="previous"
+                        top={ previousSlide.button.top }
+                        left={ previousSlide.button.left }
+                        setComponentsPosition={ setComponentsPosition }>
+                        { previousSlide.button.content }
+                    </SlideButtonView>
+                </Slide>
             </SlideManagerContainer>
         )
     }
 }
 
 function mapStateToProps(state) {
-    let slides = slidesSelectors.selectSlides(state)
-    let curSlide = slidesSelectors.selectCurrentSlideIndex(state)
-    let nextGridStyle = slides[(curSlide + 1) % slides.length].gridStyle
-
     return {
-        currentStep: slidesSelectors.selectCurrentSlide(state),
-        nextGridStyle
+        currentSlide: slidesSelectors.selectCurrentSlide(state),
+        nextSlide: slidesSelectors.selectNextSlide(state),
+        previousSlide: slidesSelectors.selectPreviousSlide(state)
     }
 }
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({...slidesActions}, dispatch)
+}
+
+SlideManager.propTypes = {
+    currentSlide: PropTypes.object.isRequired,
+    nextSlide: PropTypes.object.isRequired,
+    previousSlide: PropTypes.object.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideManager)
