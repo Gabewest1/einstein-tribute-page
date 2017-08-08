@@ -11,14 +11,18 @@ const selectCurrentSlide = createSelector(
 
 const selectNextSlide = createSelector(
     selectSlides,
-    selectCurrentSlide,
+    selectCurrentSlideIndex,
     (slides, currentSlideIndex) => slides[(currentSlideIndex + 1) % slides.length]
 )
 
 const selectPreviousSlide = createSelector(
     selectSlides,
-    selectCurrentSlide,
-    (slides, currentSlideIndex) => slides[(currentSlideIndex - 1) % slides.length]
+    selectCurrentSlideIndex,
+    (slides, currentSlideIndex) => {
+        let index = Math.max(0, currentSlideIndex - 1)
+
+        return slides[index % slides.length]
+    }
 )
 
 export default {
