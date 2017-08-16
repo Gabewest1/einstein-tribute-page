@@ -26,6 +26,7 @@ const selectPreviousSlide = createSelector(
     }
 )
 
+const selectCurrentPositions = (state) => state.slidesReducer.positions.current
 const selectTransitionForwardPositions = (state) => state.slidesReducer.positions.next
 const selectTransitionBackwardPositions = (state) => state.slidesReducer.positions.previous
 
@@ -44,6 +45,7 @@ export default {
     isTransitioningBackwards,
     isTransitionCanceled,
     selectPreviousSlide,
+    selectCurrentPositions,
     selectTransitionForwardPositions,
     selectTransitionBackwardPositions
 }
