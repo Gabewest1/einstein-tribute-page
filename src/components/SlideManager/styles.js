@@ -23,40 +23,40 @@ export const Slide = styled.div`
     }
 `
 export const CurrentSlide = styled(Slide)`
-    display: block;
+    // display: block;
     z-index: 6;
 `
 
 export const Header = styled.h1`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top};`}
+    ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
     position: relative;
     grid-area: header;
 `
 
 export const Content = styled.p`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top};`}
+    ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
     position: relative;
     grid-area: content;
 `
 
 export const SlideButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top};`}
+    ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
     position: relative;
     grid-area: button;
 `
 
 export const ScrollToTopButton = styled.button`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
-    ${({ left, top }) => `left: ${left}; top: ${top};`}
+    ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
     position: relative;
 `
 
 export const ParallaxImage = styled.div`
     ${({ isAnimating }) => isAnimating && "transition: all 500ms linear;" }
-    ${({ left, top }) => `left: ${left}; top: ${top};`}
+    ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
     background: url(${({ src }) => src}) no-repeat;
     background-size: 100%;
     background-position: center;
