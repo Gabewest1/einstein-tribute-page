@@ -13,9 +13,9 @@ export class SlideComponent extends React.Component {
         console.log("SLIDECOMPONENT:", this.component)
         let { name, type, setComponentsPosition } = this.props
         let $this = $(this.component)
-        let { top, left } = $this.position()
+        let position = $this.position()
 
-        this.props.setComponentsPosition({name, type, position: {top, left}})
+        this.props.setComponentsPosition({name, type, position })
     }
 }
 
