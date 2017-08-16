@@ -10,19 +10,23 @@ import {
 
 export class SlideComponent extends React.Component {
     componentDidMount() {
-        console.log("SLIDECOMPONENT:", this.component)
         let { name, type, setComponentsPosition } = this.props
         let $this = $(this.component)
         let position = $this.position()
+        let top = position.top + "px"
+        let left = position.left + "px"
 
-        this.props.setComponentsPosition({name, type, position })
+        this.props.setComponentsPosition({name, type, position: { top, left } })
     }
 }
 
 export class HeaderView extends SlideComponent {
     render() {
         return (
-            <Header innerRef={ (component) => {this.component = component} } { ...this.props } />
+            <Header
+                innerRef={ (component) => {this.component = component} }
+                onTransitionEnd={() => console.log(`Header transitionFinished`)}
+                { ...this.props } />
         )
     }
 }
@@ -30,15 +34,24 @@ export class HeaderView extends SlideComponent {
 export class ContentView extends SlideComponent {
     render() {
         return (
-            <Content innerRef={ (component) => {this.component = component} } { ...this.props } />
+            <Content
+                innerRef={ (component) => {this.component = component} }
+                onTransitionEnd={() => console.log(`Content transitionFinished`)}
+                { ...this.props } />
         )
     }
 }
 
 export class SlideButtonView extends SlideComponent {
     render() {
+        let { type, top, left, name } = this.props
+        console.log(`Button ${name}: ${top}, ${left}`)
+
         return (
-            <SlideButton innerRef={ (component) => {this.component = component} } { ...this.props } />
+            <SlideButton
+                innerRef={ (component) => {this.component = component} }
+                onTransitionEnd={() => console.log(`SlideButton transitionFinished`)}
+                { ...this.props } />
         )
     }
 }
@@ -46,7 +59,10 @@ export class SlideButtonView extends SlideComponent {
 export class ParallaxImageView extends SlideComponent {
     render() {
         return (
-            <ParallaxImage innerRef={ (component) => {this.component = component} } { ...this.props } />
+            <ParallaxImage
+                innerRef={ (component) => {this.component = component} }
+                onTransitionEnd={() => console.log(`ParallaxImage transitionFinished`)}
+                { ...this.props } />
         )
     }
 }
