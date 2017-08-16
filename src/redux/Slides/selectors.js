@@ -24,11 +24,19 @@ const selectPreviousSlide = createSelector(
         return slides[index % slides.length]
     }
 )
+const isTransitioningSlides = (state) => state.slidesReducer.transition.isTransitioningSlides
+const isTransitioningForwards = (state) => state.slidesReducer.transition.isTransitioningForwards
+const isTransitioningBackwards = (state) => state.slidesReducer.transition.isTransitioningBackwards
+const isTransitionCanceled = (state) => state.slidesReducer.transition.isTransitionCanceled
 
 export default {
     selectCurrentSlideIndex,
     selectSlides,
     selectCurrentSlide,
     selectNextSlide,
+    isTransitioningSlides,
+    isTransitioningForwards,
+    isTransitioningBackwards,
+    isTransitionCanceled,
     selectPreviousSlide
 }
