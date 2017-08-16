@@ -1,5 +1,6 @@
 export default [
     {
+        id: 0,
         gridStyle: `"header header header header header header header header"
                        "header header header header header header header header"
                        ". . . . . . . ."
@@ -35,7 +36,7 @@ export default [
             }
         },
         button: {
-            content: "Next",
+            content: "Next1",
             top: 0,
             left: 0,
             start: {
@@ -75,6 +76,7 @@ export default [
         }
     },
     {
+        id:1,
         gridStyle: `"content content content content content content content content"
                        "content content content content content content content content"
                        "content content content content content content content content"
@@ -110,7 +112,7 @@ export default [
             }
         },
         button: {
-            content: "Next",
+            content: "Next2",
             top: 0,
             left: 0,
             start: {
@@ -150,6 +152,7 @@ export default [
         }
     },
     {
+        id: 2,
         gridStyle: `"content content content content content content content content"
                        ". . . . . . . ."
                        "header header header header header header header header"
@@ -185,7 +188,7 @@ export default [
             }
         },
         button: {
-            content: "Next",
+            content: "Next3",
             top: 0,
             left: 0,
             start: {
