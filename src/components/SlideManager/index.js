@@ -20,150 +20,173 @@ import { actions as slidesActions, selectors as slidesSelectors } from "Redux/Sl
 
 class SlideManager extends React.Component {
     handleClick() {
-        this.setState({ isAnimating: true })
-        this.props.nextSlideFinished()
+        this.props.startTransitionForwards()
+        setTimeout(() => {
+            this.props.transitionFinished()
+            this.props.nextSlideFinished()
+        }, 2000)
     }
     render() {
         let { 
-            currentSlide, nextSlide, previousSlide, setComponentsPosition,
-            isTransitioningSlides, isTransitioningForwards, isTransitioningBackwards,
-            isTransitionCanceled 
+            currentSlide, nextSlide, previousSlide, nextPositions, previousPositions,
+            setComponentsPosition, isTransitioningSlides, isTransitioningForwards,
+            isTransitioningBackwards, isTransitionCanceled 
         } = this.props
 
         return (
             <SlideManagerContainer>
-                <CurrentSlide src={ "/assets/images/background.png" }>
+                <CurrentSlide gridStyle={ currentSlide.gridStyle } src={ "/assets/images/background.png" }>
                     <HeaderView
                         name="header"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ currentSlide.header.top }
-                        left={ currentSlide.header.left }
+                        top={ isTransitioningForwards ? currentSlide.header.end.top :
+                              isTransitioningBackwards ? currentSlide.header.start.top :
+                              currentSlide.header.top }
+                        left={ isTransitioningForwards ? currentSlide.header.end.left :
+                              isTransitioningBackwards ? currentSlide.header.start.left :
+                              currentSlide.header.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { currentSlide.header.content }
                     </HeaderView>
-                    <HeaderView
+                    {nextPositions.header && <HeaderView
                         name="nextHeader"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ nextSlide.header.start.top }
-                        left={ nextSlide.header.start.left }
+                        top={ isTransitioningForwards ? nextPositions.header.top : `${nextPositions.header.top} + ${nextSlide.header.start.top}` }
+                        left={ isTransitioningForwards ? nextPositions.header.left : `${nextPositions.header.left} + ${nextSlide.header.start.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.header.content }
-                    </HeaderView>
-                    <HeaderView
+                    </HeaderView>}
+                    {previousPositions.header && <HeaderView
                         name="previousHeader"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ previousSlide.header.end.top }
-                        left={ previousSlide.header.end.left }
+                        top={ isTransitioningBackwards ? previousPositions.header.top : `${previousPositions.header.top} + ${previousSlide.header.end.top}` }
+                        left={ isTransitioningBackwards ? previousPositions.header.left : `${previousPositions.header.left} + ${previousSlide.header.end.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.header.content }
-                    </HeaderView>
+                    </HeaderView>}
                     <ContentView
                         name="content"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ currentSlide.body.left }
-                        left={ currentSlide.body.left }
+                        top={ isTransitioningForwards ? currentSlide.body.end.top :
+                              isTransitioningBackwards ? currentSlide.body.start.top :
+                              currentSlide.body.top }
+                        left={ isTransitioningForwards ? currentSlide.body.end.left :
+                               isTransitioningBackwards ? currentSlide.body.start.left :
+                               currentSlide.body.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { currentSlide.body.content }
                     </ContentView>
-                    <ContentView
+                    {nextPositions.content && <ContentView
                         name="nextContent"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ nextSlide.body.start.top }
-                        left={ nextSlide.body.start.left }
+                        top={ isTransitioningForwards ? nextPositions.content.top : `${nextPositions.content.top} + ${nextSlide.body.start.top}` }
+                        left={ isTransitioningForwards ? nextPositions.content.left : `${nextPositions.content.left} + ${nextSlide.body.start.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.body.content }
-                    </ContentView>
-                    <ContentView
+                    </ContentView>}
+                    {previousPositions.content && <ContentView
                         name="previousContent"
                         type="current"
                         isAnimating={ isTransitioningSlides }
-                        top={ previousSlide.body.end.top }
-                        left={ previousSlide.body.end.left }
+                        top={ isTransitioningBackwards ? previousPositions.content.top : `${previousPositions.content.top} + ${previousSlide.body.end.top}` }
+                        left={ isTransitioningBackwards ? previousPositions.content.left : `${previousPositions.content.left} + ${previousSlide.body.end.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.body.content }
-                    </ContentView>
+                    </ContentView>}
                     <ParallaxImageView
                         name="image1"
                         type="current"
                         src={ currentSlide.image1.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ currentSlide.image1.top }
-                        left={ currentSlide.image1.left }
+                        top={ isTransitioningForwards ? currentSlide.image1.end.top :
+                              isTransitioningBackwards ? currentSlide.image1.start.top :
+                              currentSlide.image1.top }
+                        left={ isTransitioningForwards ? currentSlide.image1.end.left :
+                               isTransitioningBackwards ? currentSlide.image1.start.left :
+                               currentSlide.image1.left }
                         setComponentsPosition={ setComponentsPosition } />
                     <ParallaxImageView
                         name="image2"
                         type="current"
                         src={ currentSlide.image2.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ currentSlide.image2.top }
-                        left={ currentSlide.image2.left }
+                        top={ isTransitioningForwards ? currentSlide.image2.end.top :
+                              isTransitioningBackwards ? currentSlide.image2.start.top :
+                              currentSlide.image2.top }
+                        left={ isTransitioningForwards ? currentSlide.image2.end.left :
+                               isTransitioningBackwards ? currentSlide.image2.start.left :
+                               currentSlide.image2.left }
                         setComponentsPosition={ setComponentsPosition } />
-                    <ParallaxImageView
+                    {nextSlide && <ParallaxImageView
                         name="nextImage1"
                         type="current"
                         src={ nextSlide.image1.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ nextSlide.image1.start.top }
-                        left={ nextSlide.image1.start.left }
-                        setComponentsPosition={ setComponentsPosition } />
-                    <ParallaxImageView
+                        top={ isTransitioningForwards ? nextSlide.image1.top : nextSlide.image1.start.top }
+                        left={ isTransitioningForwards ? nextSlide.image1.left : nextSlide.image1.start.left }
+                        setComponentsPosition={ setComponentsPosition } />}
+                    {nextSlide && <ParallaxImageView
                         name="nextImage2"
                         type="current"
                         src={ nextSlide.image2.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ nextSlide.image2.start.top }
-                        left={ nextSlide.image2.start.left }
-                        setComponentsPosition={ setComponentsPosition } />
-                    <ParallaxImageView
+                        top={ isTransitioningForwards ? nextSlide.image2.top : nextSlide.image2.start.top }
+                        left={ isTransitioningForwards ? nextSlide.image2.left : nextSlide.image2.start.left }
+                        setComponentsPosition={ setComponentsPosition } />}
+                    {previousSlide && <ParallaxImageView
                         name="previousImage1"
                         type="current"
                         src={ previousSlide.image1.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ previousSlide.image1.end.top }
-                        left={ previousSlide.image1.end.left }
-                        setComponentsPosition={ setComponentsPosition } />
-                    <ParallaxImageView
+                        top={ isTransitioningBackwards ? previousSlide.image1.top : previousSlide.image1.end.top }
+                        left={ isTransitioningBackwards ? previousSlide.image1.left : previousSlide.image1.end.left }
+                        setComponentsPosition={ setComponentsPosition } />}
+                    {previousSlide && <ParallaxImageView
                         name="previousImage2"
                         type="current"
                         src={ previousSlide.image2.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ previousSlide.image2.end.top }
-                        left={ previousSlide.image2.end.left }
-                        setComponentsPosition={ setComponentsPosition } />
+                        top={ isTransitioningBackwards ? previousSlide.image2.top : previousSlide.image2.end.top }
+                        left={ isTransitioningBackwards ? previousSlide.image2.left : previousSlide.image2.end.left }
+                        setComponentsPosition={ setComponentsPosition } />}
                     <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="button"
                         type="current"
-                        top={ currentSlide.button.top }
-                        left={ currentSlide.button.left }
+                        top={ isTransitioningForwards ? currentSlide.button.end.top :
+                              isTransitioningBackwards ? currentSlide.button.start.top :
+                              currentSlide.button.top }
+                        left={ isTransitioningForwards ? currentSlide.button.end.left :
+                               isTransitioningBackwards ? currentSlide.button.start.left :
+                               currentSlide.button.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { currentSlide.button.content }
                     </SlideButtonView>
-                    <SlideButtonView
+                    {nextSlide && <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="nextButton"
                         type="current"
-                        top={ nextSlide.button.start.top }
-                        left={ nextSlide.button.start.left }
+                        top={ isTransitioningForwards ? nextSlide.button.top : nextSlide.button.start.top }
+                        left={ isTransitioningForwards ? nextSlide.button.left : nextSlide.button.start.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.button.content }
-                    </SlideButtonView>
-                    <SlideButtonView
+                    </SlideButtonView>}
+                    {previousSlide && <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="previousButton"
                         type="current"
-                        top={ previousSlide.button.end.top }
-                        left={ previousSlide.button.end.left }
+                        top={ isTransitioningBackwards ? previousSlide.button.top : previousSlide.button.end.top }
+                        left={ isTransitioningBackwards ? previousSlide.button.left : previousSlide.button.end.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.button.content }
-                    </SlideButtonView>
+                    </SlideButtonView>}
                 </CurrentSlide>
-                <Slide gridStyle={ nextSlide.gridStyle } style={{opacity: 0}}>
+                {nextSlide && <Slide gridStyle={ nextSlide.gridStyle } style={{opacity: 0}}>
                     <HeaderView
                         name="header"
                         type="next"
@@ -203,8 +226,8 @@ class SlideManager extends React.Component {
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.button.content }
                     </SlideButtonView>
-                </Slide>
-                <Slide gridStyle={ previousSlide.gridStyle } style={{opacity: 0}}>
+                </Slide>}
+                {previousSlide && <Slide gridStyle={ previousSlide.gridStyle } style={{opacity: 0}}>
                     <HeaderView
                         name="header"
                         type="previous"
@@ -244,7 +267,7 @@ class SlideManager extends React.Component {
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.button.content }
                     </SlideButtonView>
-                </Slide>
+                </Slide>}
             </SlideManagerContainer>
         )
     }
@@ -255,6 +278,8 @@ function mapStateToProps(state) {
         currentSlide: slidesSelectors.selectCurrentSlide(state),
         nextSlide: slidesSelectors.selectNextSlide(state),
         previousSlide: slidesSelectors.selectPreviousSlide(state),
+        nextPositions: slidesSelectors.selectTransitionForwardPositions(state),
+        previousPositions: slidesSelectors.selectTransitionBackwardPositions(state),
         isTransitioningSlides: slidesSelectors.isTransitioningSlides(state),
         isTransitioningForwards: slidesSelectors.isTransitioningForwards(state),
         isTransitioningBackwards: slidesSelectors.isTransitioningBackwards(state),
@@ -269,6 +294,8 @@ SlideManager.propTypes = {
     currentSlide: PropTypes.object.isRequired,
     nextSlide: PropTypes.object.isRequired,
     previousSlide: PropTypes.object.isRequired,
+    nextPositions: PropTypes.object.isRequired,
+    previousPositions: PropTypes.object.isRequired,
     isTransitioningSlides: PropTypes.bool.isRequired,
     isTransitioningForwards: PropTypes.bool.isRequired,
     isTransitioningBackwards: PropTypes.bool.isRequired,
