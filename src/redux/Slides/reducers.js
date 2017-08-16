@@ -55,7 +55,8 @@ const transitionsReducer = handleActions({
 
 const positionsReducer = handleActions({
     [setComponentsPosition]: (state, {payload: { name, type, position }}) =>
-        ({...state, [type]: {...state[type], [name]: position}})
+        ({...state, [type]: {...state[type], [name]: position}}),
+    [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
 }, {previous: {}, current: {}, next: {}})
 
 const slideTrackerReducer = handleActions({
