@@ -36,19 +36,19 @@ class SlideManager extends React.Component {
         return (
             <SlideManagerContainer>
                 <CurrentSlide src={ "/assets/images/background.png" }>
-                    <HeaderView
+                    {currentPositions.header && <HeaderView
                         name="header"
                         type="main"
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? currentSlide.header.end.top :
-                              isTransitioningBackwards ? currentSlide.header.start.top :
-                              currentSlide.header.top }
-                        left={ isTransitioningForwards ? currentSlide.header.end.left :
-                              isTransitioningBackwards ? currentSlide.header.start.left :
-                              currentSlide.header.left }
+                        top={ isTransitioningForwards ? `${currentPositions.header.top} + ${currentSlide.header.end.top}` :
+                              isTransitioningBackwards ? `${currentPositions.header.top} + ${currentSlide.header.start.top}` :
+                              currentPositions.header.top }
+                        left={ isTransitioningForwards ? `${currentPositions.header.left} + ${currentSlide.header.end.left}` :
+                              isTransitioningBackwards ? `${currentPositions.header.left} + ${currentSlide.header.start.left}` :
+                              currentPositions.header.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { currentSlide.header.content }
-                    </HeaderView>
+                    </HeaderView>}
                     {nextPositions.header && <HeaderView
                         name="nextHeader"
                         type="main"
@@ -67,19 +67,19 @@ class SlideManager extends React.Component {
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.header.content }
                     </HeaderView>}
-                    <ContentView
+                    {currentPositions.content && <ContentView
                         name="content"
                         type="main"
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? currentSlide.body.end.top :
-                              isTransitioningBackwards ? currentSlide.body.start.top :
-                              currentSlide.body.top }
-                        left={ isTransitioningForwards ? currentSlide.body.end.left :
-                               isTransitioningBackwards ? currentSlide.body.start.left :
-                               currentSlide.body.left }
+                        top={ isTransitioningForwards ? `${currentPositions.content.top} + ${currentSlide.body.end.top}` :
+                              isTransitioningBackwards ? `${currentPositions.content.top} + ${currentSlide.body.start.top}` :
+                              currentPositions.content.top }
+                        left={ isTransitioningForwards ? `${currentPositions.content.left} + ${currentSlide.body.end.left}` :
+                               isTransitioningBackwards ? `${currentPositions.content.left} + ${currentSlide.body.start.left}` :
+                               currentPositions.content.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { currentSlide.body.content }
-                    </ContentView>
+                    </ContentView>}
                     {nextPositions.content && <ContentView
                         name="nextContent"
                         type="main"
