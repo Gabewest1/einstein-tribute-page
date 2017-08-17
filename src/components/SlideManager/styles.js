@@ -9,22 +9,29 @@ export const SlideManagerContainer = styled.div`
 export const Slide = styled.div`
     ${({ src }) => src && `background: url(${src});`}
     background-size: 100% 100%;
-    height: ${window.innerHeight}px;
     position: absolute;
+    height: ${window.innerHeight}px;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(8, 1fr);
     flex-direction: column;
     justify-content: space-between;
     grid-template-areas: ${({ gridStyle }) => gridStyle };
+    opacity: 0;
 
     > * {
         z-index: 5;
     }
 `
 export const CurrentSlide = styled(Slide)`
-    // display: block;
+    display: block;
+    opacity: 1;
     z-index: 6;
+
+    > * {
+        position: absolute !important;
+    }
 `
 
 export const Header = styled.h1`
