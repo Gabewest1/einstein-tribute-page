@@ -30,7 +30,7 @@ class SlideManager extends React.Component {
         let { 
             currentSlide, nextSlide, previousSlide, currentPositions, nextPositions, previousPositions,
             setComponentsPosition, isTransitioningSlides, isTransitioningForwards,
-            isTransitioningBackwards, isTransitionCanceled 
+            isTransitioningBackwards, isTransitionCanceled, isTransitionFinished
         } = this.props
 
         return (
@@ -40,10 +40,15 @@ class SlideManager extends React.Component {
                         name="header"
                         type="main"
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? `${currentPositions.header.top} + ${currentSlide.header.end.top}` :
+                        top={ isTransitionFinished && isTransitioningForwards ? nextSlide.header.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.header.top :
+                              isTransitioningForwards ? `${currentPositions.header.top} + ${currentSlide.header.end.top}` :
                               isTransitioningBackwards ? `${currentPositions.header.top} + ${currentSlide.header.start.top}` :
                               currentPositions.header.top }
-                        left={ isTransitioningForwards ? `${currentPositions.header.left} + ${currentSlide.header.end.left}` :
+                        left={isTransitionFinished && isTransitioningForwards ? nextSlide.header.left :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.header.left :
+                              isTransitionFinished && isTransitioningForwards ? nextSlide.header.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.header.top :isTransitioningForwards ? `${currentPositions.header.left} + ${currentSlide.header.end.left}` :
                               isTransitioningBackwards ? `${currentPositions.header.left} + ${currentSlide.header.start.left}` :
                               currentPositions.header.left }
                         setComponentsPosition={ setComponentsPosition }>
@@ -71,10 +76,14 @@ class SlideManager extends React.Component {
                         name="content"
                         type="main"
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? `${currentPositions.content.top} + ${currentSlide.body.end.top}` :
+                        top={ isTransitionFinished && isTransitioningForwards ? nextSlide.content.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.content.top :
+                              isTransitioningForwards ? `${currentPositions.content.top} + ${currentSlide.body.end.top}` :
                               isTransitioningBackwards ? `${currentPositions.content.top} + ${currentSlide.body.start.top}` :
                               currentPositions.content.top }
-                        left={ isTransitioningForwards ? `${currentPositions.content.left} + ${currentSlide.body.end.left}` :
+                        left={ isTransitionFinished && isTransitioningForwards ? nextSlide.content.left :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.content.left :
+                              isTransitioningForwards ? `${currentPositions.content.left} + ${currentSlide.body.end.left}` :
                                isTransitioningBackwards ? `${currentPositions.content.left} + ${currentSlide.body.start.left}` :
                                currentPositions.content.left }
                         setComponentsPosition={ setComponentsPosition }>
@@ -103,10 +112,14 @@ class SlideManager extends React.Component {
                         type="main"
                         src={ currentSlide.image1.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? currentSlide.image1.end.top :
+                        top={ isTransitionFinished && isTransitioningForwards ? nextSlide.image1.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.image1.top :
+                              isTransitioningForwards ? currentSlide.image1.end.top :
                               isTransitioningBackwards ? currentSlide.image1.start.top :
                               currentSlide.image1.top }
-                        left={ isTransitioningForwards ? currentSlide.image1.end.left :
+                        left={ isTransitionFinished && isTransitioningForwards ? nextSlide.image1.left :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.image1.left :
+                              isTransitioningForwards ? currentSlide.image1.end.left :
                                isTransitioningBackwards ? currentSlide.image1.start.left :
                                currentSlide.image1.left }
                         setComponentsPosition={ setComponentsPosition } />
@@ -115,10 +128,14 @@ class SlideManager extends React.Component {
                         type="main"
                         src={ currentSlide.image2.src }
                         isAnimating={ isTransitioningSlides }
-                        top={ isTransitioningForwards ? currentSlide.image2.end.top :
+                        top={ isTransitionFinished && isTransitioningForwards ? nextSlide.image2.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.image2.top :
+                              isTransitioningForwards ? currentSlide.image2.end.top :
                               isTransitioningBackwards ? currentSlide.image2.start.top :
                               currentSlide.image2.top }
-                        left={ isTransitioningForwards ? currentSlide.image2.end.left :
+                        left={ isTransitionFinished && isTransitioningForwards ? nextSlide.image2.left :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.image1.top :
+                              isTransitioningForwards ? currentSlide.image2.end.left :
                                isTransitioningBackwards ? currentSlide.image2.start.left :
                                currentSlide.image2.left }
                         setComponentsPosition={ setComponentsPosition } />
@@ -158,10 +175,14 @@ class SlideManager extends React.Component {
                         onClick={ () => this.handleClick() }
                         name="button"
                         type="main"
-                        top={ isTransitioningForwards ? currentSlide.button.end.top :
+                        top={ isTransitionFinished && isTransitioningForwards ? nextSlide.button.top :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.button.top :
+                              isTransitioningForwards ? currentSlide.button.end.top :                              
                               isTransitioningBackwards ? currentSlide.button.start.top :
                               currentSlide.button.top }
-                        left={ isTransitioningForwards ? currentSlide.button.end.left :
+                        left={isTransitionFinished && isTransitioningForwards ? nextSlide.button.left :
+                              isTransitionFinished && isTransitioningBackwards ? previousSlide.button.left :
+                              isTransitioningForwards ? currentSlide.button.end.left :
                                isTransitioningBackwards ? currentSlide.button.start.left :
                                currentSlide.button.left }
                         setComponentsPosition={ setComponentsPosition }>
@@ -325,7 +346,8 @@ function mapStateToProps(state) {
         isTransitioningSlides: slidesSelectors.isTransitioningSlides(state),
         isTransitioningForwards: slidesSelectors.isTransitioningForwards(state),
         isTransitioningBackwards: slidesSelectors.isTransitioningBackwards(state),
-        isTransitionCanceled: slidesSelectors.isTransitionCanceled(state)
+        isTransitionCanceled: slidesSelectors.isTransitionCanceled(state),
+        isTransitionFinished: slidesSelectors.isTransitionFinished(state)
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -342,7 +364,8 @@ SlideManager.propTypes = {
     isTransitioningSlides: PropTypes.bool.isRequired,
     isTransitioningForwards: PropTypes.bool.isRequired,
     isTransitioningBackwards: PropTypes.bool.isRequired,
-    isTransitionCanceled: PropTypes.bool.isRequired
+    isTransitionCanceled: PropTypes.bool.isRequired,
+    isTransitionFinished: PropTypes.bool.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SlideManager)
