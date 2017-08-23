@@ -34,6 +34,7 @@ const isTransitioningSlides = (state) => state.slidesReducer.transition.isTransi
 const isTransitioningForwards = (state) => state.slidesReducer.transition.isTransitioningForwards
 const isTransitioningBackwards = (state) => state.slidesReducer.transition.isTransitioningBackwards
 const isTransitionCanceled = (state) => state.slidesReducer.transition.isTransitionCanceled
+const isTransitionFinished = (state) => state.slidesReducer.transition.isTransitionFinished
 
 export default {
     selectCurrentSlideIndex,
@@ -47,5 +48,6 @@ export default {
     selectPreviousSlide,
     selectCurrentPositions,
     selectTransitionForwardPositions,
-    selectTransitionBackwardPositions
+    selectTransitionBackwardPositions,
+    isTransitionFinished
 }
