@@ -21,10 +21,10 @@ import { actions as slidesActions, selectors as slidesSelectors } from "Redux/Sl
 class SlideManager extends React.Component {
     handleClick() {
         this.props.startTransitionForwards()
-        // setTimeout(() => {
-        //     this.props.transitionFinished()
-        //     this.props.nextSlideFinished()
-        // }, 2000)
+        setTimeout(() => {
+            this.props.transitionFinished()
+            this.props.nextSlideFinished()
+        }, 2000)
     }
     render() {
         let { 

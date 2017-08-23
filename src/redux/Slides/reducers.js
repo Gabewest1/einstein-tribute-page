@@ -44,19 +44,21 @@ const transitionReducerInitialState = {
     isTransitioningSlides: false,
     isTransitioningForwards: false,
     isTransitioningBackwards: false,
-    isTransitionCanceled: false
+    isTransitionCanceled: false,
+    isTransitionFinished: false
 }
 const transitionsReducer = handleActions({
     [startTransitionForwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningForwards: true }),
     [startTransitionBackwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningBackwards: true}),
-    [transitionFinished]: (state, action) => transitionReducerInitialState,
-    [transitionCanceled]: (state, action) => ({...state, isTransitionCanceled: true})
+    [transitionFinished]: (state, action) => ({...state, isTransitionFinished: true, isTransitioningSlides: false}),
+    [transitionCanceled]: (state, action) => ({...state, isTransitionCanceled: true}),
+    [nextSlideFinished]: (state, action) => transitionReducerInitialState
 }, transitionReducerInitialState)
 
 const positionsReducer = handleActions({
     [setComponentsPosition]: (state, {payload: { name, type, position }}) =>
         ({...state, [type]: {...state[type], [name]: position}}),
-    [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
+    // [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
 }, {previous: {}, current: {}, next: {}})
 
 const slideTrackerReducer = handleActions({
