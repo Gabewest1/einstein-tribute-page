@@ -20,9 +20,9 @@ const selectPreviousSlide = createSelector(
     selectCurrentSlideIndex,
     (slides, currentSlideIndex) => {
         // let index = Math.max(0, currentSlideIndex - 1)
-        let index = currentSlideIndex - 1
+        let index = Math.max(0, currentSlideIndex - 1)
 
-        return index >= 0 ? slides[index] : null
+        return slides[index]
     }
 )
 
@@ -39,6 +39,8 @@ const isTransitionFinished = (state) => state.slidesReducer.transition.isTransit
 const wasTransitioningForwards = (state) => state.slidesReducer.transition.wasTransitioningForwards
 const wasTransitioningBackwards = (state) => state.slidesReducer.transition.wasTransitioningBackwards
 
+const isRenderingNextSlide = (state) => state.slidesReducer.rendering.isRenderingNextSlide
+
 export default {
     selectCurrentSlideIndex,
     selectSlides,
@@ -54,5 +56,6 @@ export default {
     selectTransitionBackwardPositions,
     isTransitionFinished,
     wasTransitioningForwards,
-    wasTransitioningBackwards
+    wasTransitioningBackwards,
+    isRenderingNextSlide
 }
