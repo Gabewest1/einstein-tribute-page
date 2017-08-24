@@ -43,16 +43,16 @@ export const Header = styled.h1`
 export const MainHeader = styled(Header)`
     ${(props) => {
         let { 
-            start, nextTop, nextLeft,  isTransitionCanceled, isTransitionFinished, 
-            isTransitioningForwards, isTransitioningBackwards, wasTransitioningForwards,
-            wasTransitioningBackwards
+            start, next, previous, finishNext, finishPrevious,
+            isTransitionCanceled, isTransitionFinished, isTransitioningForwards,
+            isTransitioningBackwards, wasTransitioningForwards, wasTransitioningBackwards
         } = props
-        
+        console.log("MainHeader:", props)
         if (isTransitionFinished) {
             if (wasTransitioningForwards) {
                 return `left: calc(${finishNext.left}); top: calc(${finishNext.top});`         
             } else if (wasTransitioningBackwards) {
-                return `left: calc(${finishPrevous.left}); top: calc(${finishPrevous.top});`                         
+                return `left: calc(${finishPrevious.left}); top: calc(${finishPrevious.top});`                         
             }
         } else if (isTransitioningForwards) {
             return `left: calc(${next.left}); top: calc(${next.top});`            
