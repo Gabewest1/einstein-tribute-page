@@ -3,7 +3,6 @@ import { combineReducers } from "redux"
 import slidesInitialState from "./slidesInitialState"
 
 const {
-    gotoNextSlide,
     startNextSlide,
     nextSlideFinished,
     startPreviousSlide,
@@ -11,10 +10,10 @@ const {
     setComponentsPosition,
     startTransitionForwards,
     startTransitionBackwards,
+    resetTransitions,
     transitionFinished,
     transitionCanceled
 } = createActions(
-    "GOTO_NEXT_SLIDE",
     "START_NEXT_SLIDE",
     "NEXT_SLIDE_FINISHED",
     "START_PREVIOUS_SLIDE",
@@ -22,12 +21,12 @@ const {
     "SET_COMPONENTS_POSITION",
     "START_TRANSITION_FORWARDS",
     "START_TRANSITION_BACKWARDS",
+    "RESET_TRANSITIONS",
     "TRANSITION_FINISHED",
     "TRANSITION_CANCELED"
 )
 
 export const actions = {
-    gotoNextSlide,
     startNextSlide,
     nextSlideFinished,
     startPreviousSlide,
@@ -35,6 +34,7 @@ export const actions = {
     setComponentsPosition,
     startTransitionForwards,
     startTransitionBackwards,
+    resetTransitions,
     transitionFinished,
     transitionCanceled
 }
@@ -45,20 +45,22 @@ const transitionReducerInitialState = {
     isTransitioningForwards: false,
     isTransitioningBackwards: false,
     isTransitionCanceled: false,
-    isTransitionFinished: false
+    isTransitionFinished: false,
+    wasTransitioningForwards: false,
+    wasTransitioningBackwards: false,
 }
 const transitionsReducer = handleActions({
-    [startTransitionForwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningForwards: true }),
-    [startTransitionBackwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningBackwards: true}),
-    [transitionFinished]: (state, action) => ({...state, isTransitionFinished: true, isTransitioningSlides: false}),
+    [startTransitionForwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningForwards: true, wasTransitioningForwards: true }),
+    [startTransitionBackwards]: (state, action) => ({...state, isTransitioningSlides: true, isTransitioningBackwards: true, wasTransitioningBackwards: true}),
+    [transitionFinished]: (state, action) => ({...state, isTransitionFinished: true, isTransitioningSlides: false, isTransitioningForwards: false, isTransitioningBackwards: false}),
     [transitionCanceled]: (state, action) => ({...state, isTransitionCanceled: true}),
-    [nextSlideFinished]: (state, action) => transitionReducerInitialState
+    [resetTransitions]: (state, action) => transitionReducerInitialState
 }, transitionReducerInitialState)
 
 const positionsReducer = handleActions({
     [setComponentsPosition]: (state, {payload: { name, type, position }}) =>
         ({...state, [type]: {...state[type], [name]: position}}),
-    // [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
+    [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
 }, {previous: {}, current: {}, next: {}})
 
 const slideTrackerReducer = handleActions({
