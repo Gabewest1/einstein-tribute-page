@@ -3,6 +3,9 @@ import $ from "jquery"
 
 import {
     Header,
+    MainHeader,
+    NextHeader,
+    PreviousHeader,
     Content,
     SlideButton,
     ParallaxImage
@@ -22,8 +25,23 @@ export class SlideComponent extends React.Component {
 
 export class HeaderView extends SlideComponent {
     render() {
+        let HeaderComponent
+        if (this.props.type === "main") {
+
+            if (this.props.name === "nextHeader") {
+                HeaderComponent = NextHeader            
+            } else if (this.props.name === "previousHeader") {
+                HeaderComponent = PreviousHeader
+            } else {
+                HeaderComponent = MainHeader
+            }
+
+        } else {
+            HeaderComponent = Header
+        }
+        
         return (
-            <Header
+            <HeaderComponent
                 innerRef={ (component) => {this.component = component} }
                 onTransitionEnd={() => console.log(`Header transitionFinished`)}
                 { ...this.props } />
