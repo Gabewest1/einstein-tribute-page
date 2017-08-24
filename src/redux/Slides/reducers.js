@@ -4,6 +4,8 @@ import slidesInitialState from "./slidesInitialState"
 
 const {
     startNextSlide,
+    renderNextSlideFinished,
+    renderNextSlide,
     nextSlideFinished,
     startPreviousSlide,
     previousSlideFinished,
@@ -14,6 +16,8 @@ const {
     transitionFinished,
     transitionCanceled
 } = createActions(
+    "RENDER_NEXT_SLIDE",
+    "RENDER_NEXT_SLIDE_FINISHED",
     "START_NEXT_SLIDE",
     "NEXT_SLIDE_FINISHED",
     "START_PREVIOUS_SLIDE",
@@ -27,6 +31,8 @@ const {
 )
 
 export const actions = {
+    renderNextSlide,
+    renderNextSlideFinished,
     startNextSlide,
     nextSlideFinished,
     startPreviousSlide,
@@ -60,8 +66,13 @@ const transitionsReducer = handleActions({
 const positionsReducer = handleActions({
     [setComponentsPosition]: (state, {payload: { name, type, position }}) =>
         ({...state, [type]: {...state[type], [name]: position}}),
-    [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
-}, {previous: {}, current: {}, next: {}})
+    // [nextSlideFinished]: (state, action) => ({previous: {}, current: {}, next: {}})
+}, { previous: {}, current: {}, next: {} })
+
+const renderingReducer = handleActions({
+    [nextSlideFinished]: (state, action) => ({isRenderingNextSlide: true}),
+    [renderNextSlideFinished]: (state, action) => ({isRenderingNextSlide: false})
+}, { isRenderingNextSlide: false })
 
 const slideTrackerReducer = handleActions({
     [nextSlideFinished]: (state, action) => ({...state, currentSlideIndex: state.currentSlideIndex + 1}),
@@ -74,5 +85,6 @@ const slideTrackerReducer = handleActions({
 export default combineReducers({
     slides: slideTrackerReducer,
     positions: positionsReducer,
-    transition: transitionsReducer
+    transition: transitionsReducer,
+    rendering: renderingReducer
 })
