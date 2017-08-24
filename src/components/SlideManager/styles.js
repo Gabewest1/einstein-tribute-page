@@ -40,6 +40,51 @@ export const Header = styled.h1`
     position: relative;
     grid-area: header;
 `
+export const MainHeader = styled(Header)`
+    ${(props) => {
+        let { 
+            start, nextTop, nextLeft,  isTransitionCanceled, isTransitionFinished, 
+            isTransitioningForwards, isTransitioningBackwards, wasTransitioningForwards,
+            wasTransitioningBackwards
+        } = props
+        
+        if (isTransitionFinished) {
+            if (wasTransitioningForwards) {
+                return `left: calc(${finishNext.left}); top: calc(${finishNext.top});`         
+            } else if (wasTransitioningBackwards) {
+                return `left: calc(${finishPrevous.left}); top: calc(${finishPrevous.top});`                         
+            }
+        } else if (isTransitioningForwards) {
+            return `left: calc(${next.left}); top: calc(${next.top});`            
+        } else if (isTransitioningBackwards) {
+            return `left: calc(${previous.left}); top: calc(${previous.top});`            
+        } else {
+            return `left: calc(${start.left}); top: calc(${start.top});`
+        }
+    }}
+`
+export const NextHeader = styled(Header)`
+    ${(props) => {
+        let { isTransitionFinished, isTransitioningForwards, start, finish } = props
+        
+        if (isTransitioningForwards) {
+            return `left: calc(${finish.left}); top: calc(${finish.top});`
+        } else {
+            return `left: calc(${start.left}); top: calc(${start.top});`
+        }        
+    }}
+`
+export const PreviousHeader = styled(Header)`
+    ${(props) => {
+        let { isTransitionFinished, isTransitioningBackwards, start, finish } = props
+        
+        if (isTransitioningBackwards) {
+            return `left: calc(${finish.left}); top: calc(${finish.top});`
+        } else {
+            return `left: calc(${start.left}); top: calc(${start.top});`
+        }        
+    }}
+`
 
 export const Content = styled.p`
     ${({ isAnimating }) => isAnimating && "transition: all 1s ease-in-out;" }
