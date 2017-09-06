@@ -106,14 +106,11 @@ export const ScrollToTopButton = styled.button`
     position: relative;
 `
 
-export const ParallaxImage = styled.div`
+export const ParallaxImage = styled.img`
     ${({ isAnimating }) => isAnimating && "transition: all 500ms linear;" }
     ${({ left, top }) => `left: calc(${left}); top: calc(${top});`}
-    background: url(${({ src }) => src}) no-repeat;
-    background-size: 100%;
-    background-position: center;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     z-index: 1;
 `
