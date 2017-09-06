@@ -24,11 +24,11 @@ class SlideManager extends React.Component {
         setTimeout(() => {
             this.props.transitionFinished()
             setTimeout(() => {
-                this.props.renderNextSlide()
                 this.props.nextSlideFinished()
+                this.props.renderNextSlide()
                 setTimeout(() => {
-                    this.props.resetTransitions()
                     this.props.renderNextSlideFinished()
+                    this.props.resetTransitions()
                 }, 2000)
             }, 2000)
             
@@ -46,7 +46,7 @@ class SlideManager extends React.Component {
         return (
             <SlideManagerContainer>
                 {currentPositions.header && <CurrentSlide src={ "/assets/images/background.png" }>
-                    {<HeaderView
+                    <HeaderView
                         name="header"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -72,8 +72,8 @@ class SlideManager extends React.Component {
                           isTransitionFinished && wasTransitioningForwards ? nextSlide.header.content :
                           isTransitionFinished && wasTransitioningBackwards ? previousSlide.header.content :
                           currentSlide.header.content }
-                    </HeaderView>}
-                    {<HeaderView
+                    </HeaderView>
+                    <HeaderView
                         name="nextHeader"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -87,8 +87,8 @@ class SlideManager extends React.Component {
                         finish={ {top: nextPositions.header.top, left: nextPositions.header.left} }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.header.content }
-                    </HeaderView>}
-                    {<HeaderView
+                    </HeaderView>
+                    <HeaderView
                         name="previousHeader"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -102,8 +102,8 @@ class SlideManager extends React.Component {
                         finish={ {top: previousPositions.header.top, left: previousPositions.header.left} }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.header.content }
-                    </HeaderView>}
-                    {<ContentView
+                    </HeaderView>
+                    <ContentView
                         name="content"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -122,8 +122,8 @@ class SlideManager extends React.Component {
                           isTransitionFinished && wasTransitioningForwards ? nextSlide.body.content :
                           isTransitionFinished && wasTransitioningBackwards ? previousSlide.body.content :
                           currentSlide.body.content }
-                    </ContentView>}
-                    {<ContentView
+                    </ContentView>
+                    <ContentView
                         name="nextContent"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -131,8 +131,8 @@ class SlideManager extends React.Component {
                         left={ isTransitioningForwards ? nextPositions.content.left : `${nextPositions.content.left} + ${nextSlide.body.start.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.body.content }
-                    </ContentView>}
-                    {<ContentView
+                    </ContentView>
+                    <ContentView
                         name="previousContent"
                         type="main"
                         isAnimating={ isTransitioningSlides }
@@ -140,8 +140,8 @@ class SlideManager extends React.Component {
                         left={ isTransitioningBackwards ? previousPositions.content.left : `${previousPositions.content.left} + ${previousSlide.body.end.left}` }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.body.content }
-                    </ContentView>}
-                    {<ParallaxImageView
+                    </ContentView>
+                    <ParallaxImageView
                         name="image1"
                         type="main"
                         src={ currentSlide.image1.src }
@@ -157,7 +157,7 @@ class SlideManager extends React.Component {
                                isTransitioningBackwards ? currentSlide.image1.start.left :
                                currentSlide.image1.left }
                         setComponentsPosition={ setComponentsPosition } />}
-                    {<ParallaxImageView
+                    <ParallaxImageView
                         name="image2"
                         type="main"
                         src={ currentSlide.image2.src }
@@ -205,7 +205,7 @@ class SlideManager extends React.Component {
                         top={ isTransitioningBackwards ? previousSlide.image2.top : previousSlide.image2.end.top }
                         left={ isTransitioningBackwards ? previousSlide.image2.left : previousSlide.image2.end.left }
                         setComponentsPosition={ setComponentsPosition } />}
-                    {<SlideButtonView
+                    <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="button"
                         type="main"
@@ -223,8 +223,8 @@ class SlideManager extends React.Component {
                         { isTransitionFinished && wasTransitioningForwards ? nextSlide.button.content :
                           isTransitionFinished && wasTransitioningBackwards ? previousSlide.button.content :
                           currentSlide.button.content }
-                    </SlideButtonView>}
-                    {<SlideButtonView
+                    </SlideButtonView>
+                    <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="nextButton"
                         type="main"
@@ -232,8 +232,8 @@ class SlideManager extends React.Component {
                         left={ isTransitioningForwards ? nextSlide.button.left : nextSlide.button.start.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { nextSlide.button.content }
-                    </SlideButtonView>}
-                    {<SlideButtonView
+                    </SlideButtonView>
+                    <SlideButtonView
                         onClick={ () => this.handleClick() }
                         name="previousButton"
                         type="main"
@@ -241,7 +241,7 @@ class SlideManager extends React.Component {
                         left={ isTransitioningBackwards ? previousSlide.button.left : previousSlide.button.end.left }
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.button.content }
-                    </SlideButtonView>}
+                    </SlideButtonView>
                 </CurrentSlide>}
                 <Slide gridStyle={ currentSlide.gridStyle }>
                     <HeaderView
@@ -334,7 +334,7 @@ class SlideManager extends React.Component {
                         setComponentsPosition={ setComponentsPosition }>
                         { previousSlide.header.content }
                     </HeaderView>
-                    <ContentView
+                <ContentView
                         name="content"
                         type="previous"
                         top={ previousSlide.body.top }
