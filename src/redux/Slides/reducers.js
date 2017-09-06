@@ -70,7 +70,7 @@ const positionsReducer = handleActions({
 }, { previous: {}, current: {}, next: {} })
 
 const renderingReducer = handleActions({
-    [nextSlideFinished]: (state, action) => ({isRenderingNextSlide: true}),
+    [renderNextSlide]: (state, action) => ({isRenderingNextSlide: true}),
     [renderNextSlideFinished]: (state, action) => ({isRenderingNextSlide: false})
 }, { isRenderingNextSlide: false })
 
